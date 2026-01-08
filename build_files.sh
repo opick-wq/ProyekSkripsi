@@ -1,4 +1,9 @@
 # build_files.sh
 pip install -r requirements.txt
-python3.9 manage.py migrate  # <--- INI WAJIB ADA
-python3.9 manage.py collectstatic --noinput --clear
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py collectstatic --noinput --clear
+
+git update-index --chmod=+x build_files.sh
+git commit -m "Make build script executable"
+git push
