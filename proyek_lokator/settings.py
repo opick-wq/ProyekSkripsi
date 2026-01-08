@@ -70,24 +70,15 @@ WSGI_APPLICATION = 'proyek_lokator.wsgi.application'
 # }
 
 if 'DATABASE_URL' in os.environ:
-    # Jika di Vercel, pakai PostgreSQL Neon
-    # URL diambil otomatis dari Environment Variable 'DATABASE_URL'
     DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
-    # Jika di Laptop, pakai SQLite seperti biasa
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
-    }
-# JANGAN GUNAKAN INI JIKA UPLOAD KE GITHUB PUBLIC
-if 'VERCEL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.parse("postgresql://neondb_owner:npg_Z6BM3YrQhPNm@ep-lucky-dawn-aho34eup-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
-        # ^^^ Ganti string di atas dengan URL Neon asli Anda
     }
 
 LOGIN_REDIRECT_URL = 'home' 
@@ -130,17 +121,15 @@ USE_TZ = True
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Folder tempat kita menaruh CSS/JS kustom kita sendiri (selain admin)
+# Folder tempat Django mengambil file statis tambahan (CSS/JS buatan sendiri)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Gunakan WhiteNoise untuk melayani file statis di Vercel
-# CompressedManifestStaticFilesStorage membuat file lebih kecil & cacheable
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Folder OUTPUT di mana Django akan mengumpulkan semua file statis saat deploy.
+# PENTING: Nama folder ini HARUS SAMA dengan "distDir" di vercel.json
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build') 
 
-# --- MEDIA FILES (Upload Foto) ---
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Gunakan Whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
