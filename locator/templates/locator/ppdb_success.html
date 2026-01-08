@@ -1,0 +1,52 @@
+{% extends 'locator/base.html' %}
+
+{% block title %}Pendaftaran Berhasil{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            
+            <!-- Kartu Sukses -->
+            <div class="card shadow-lg border-0 rounded-4 p-5">
+                <div class="card-body">
+                    
+                    <!-- Ikon Sukses Animasi -->
+                    <div class="mb-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle" style="width: 80px; height: 80px;">
+                            <i class="fas fa-check fa-3x"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="fw-bold text-success mb-3">Pendaftaran Berhasil!</h2>
+                    <p class="lead text-muted mb-4">
+                        Terima kasih, <strong>{{ user.username }}</strong>. Data pendaftaran Anda telah kami terima.
+                    </p>
+
+                    <div class="alert alert-info text-start" role="alert">
+                        <h5 class="alert-heading fw-bold"><i class="fas fa-info-circle me-2"></i>Langkah Selanjutnya:</h5>
+                        <hr>
+                        <ol class="mb-0 ps-3">
+                            <li class="mb-2">Silakan <strong>Datang ke Sekolah</strong> (MI Mathalaul Anwar Hulurawa 1) sesuai dengan <strong>Tanggal Booking</strong> yang telah Anda pilih di formulir.</li>
+                            <li class="mb-2">Bawa berkas persyaratan fisik (Akte Kelahiran, KK, KTP Orang Tua) untuk verifikasi.</li>
+                            <li class="mb-0">Tunjukkan bukti pendaftaran ini kepada panitia PPDB di sekolah.</li>
+                        </ol>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="d-grid gap-3 d-sm-flex justify-content-center mt-5">
+                        <a href="{% url 'ppdb_dashboard' %}" class="btn btn-primary btn-lg px-4 rounded-pill fw-bold shadow-sm">
+                            <i class="fas fa-id-card me-2"></i> Lihat Status Pendaftaran
+                        </a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg px-4 rounded-pill fw-bold">
+                            Kembali ke Beranda
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

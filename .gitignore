@@ -1,0 +1,69 @@
+--- PYTHON ---
+
+*.py[cod]
+pycache/
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+--- VIRTUAL ENVIRONMENT (Sangat Penting!) ---
+
+venv/
+env/
+ENV/
+.env
+.venv/
+
+--- DATABASE ---
+
+Jika Anda ingin database SQLite lokal IKUT ter-upload ke Vercel (untuk Demo),
+
+biarkan baris db.sqlite3 ini diberi pagar (#).
+
+Jika ingin database bersih/kosong di Vercel, hilangkan pagarnya.
+
+db.sqlite3
+
+--- DJANGO ---
+
+*.log
+local_settings.py
+db.sqlite3-journal
+
+--- MEDIA FILES ---
+
+Folder tempat foto-foto upload disimpan.
+
+Biasanya tidak di-upload ke Git agar repo tidak berat.
+
+Tapi untuk demo skripsi, boleh di-upload jika fotonya sedikit.
+
+media/
+
+--- STATIC FILES ---
+
+Folder hasil collectstatic (otomatis dibuat di server)
+
+staticfiles/
+
+--- EDITOR SETTINGS ---
+
+.vscode/
+.idea/
+*.swp

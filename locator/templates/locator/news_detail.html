@@ -1,0 +1,97 @@
+{% extends 'locator/base.html' %}
+
+{% block title %}{{ news.title }} - Detail Berita{% endblock %}
+
+{% block content %}
+<div class="bg-light min-vh-100 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                <!-- Navigasi Breadcrumb (Jejak Halaman) -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb bg-white p-3 rounded shadow-sm border-start border-5 border-success align-items-center">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-muted"><i class="fas fa-home"></i> Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'news_list' %}" class="text-decoration-none text-muted">Berita</a></li>
+                        <li class="breadcrumb-item active text-success fw-bold" aria-current="page">Baca Berita</li>
+                    </ol>
+                </nav>
+
+                <!-- Kartu Artikel Utama -->
+                <article class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    
+                    <!-- Gambar Utama (Featured Image) -->
+                    <div class="position-relative">
+                        <img src="{{ news.image.url }}" class="card-img-top w-100" alt="{{ news.title }}" style="height: 450px; object-fit: cover;">
+                        <!-- Overlay Gradasi Halus -->
+                        <div class="position-absolute bottom-0 start-0 w-100 h-25" style="background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);"></div>
+                    </div>
+
+                    <div class="card-body p-4 p-md-5">
+                        <!-- Info Meta (Tanggal & Penulis) -->
+                        <div class="d-flex align-items-center mb-3 text-muted small">
+                            <span class="me-4">
+                                <i class="far fa-calendar-alt text-warning me-2"></i>{{ news.created_at|date:"d F Y" }}
+                            </span>
+                            <span>
+                                <i class="far fa-user-circle text-warning me-2"></i>{{ news.author.username }}
+                            </span>
+                        </div>
+
+                        <!-- Judul Berita -->
+                        <h1 class="fw-bold text-dark mb-4 display-6" style="line-height: 1.4;">{{ news.title }}</h1>
+
+                        <!-- Garis Pemisah -->
+                        <hr class="text-muted opacity-25 my-4">
+
+                        <!-- Isi Konten Berita -->
+                        <div class="article-content text-secondary" style="font-size: 1.1rem; line-height: 1.9; text-align: justify;">
+                            {{ news.content|linebreaks }}
+                        </div>
+
+                        <!-- Footer Artikel (Tombol Kembali & Share) -->
+                        <div class="mt-5 pt-4 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                            <a href="{% url 'news_list' %}" class="btn btn-outline-success rounded-pill px-4 fw-bold shadow-sm hover-effect">
+                                <i class="fas fa-arrow-left me-2"></i> Kembali ke Daftar Berita
+                            </a>
+                            
+                            <!-- Ikon Media Sosial (Hiasan UI) -->
+                            <div class="d-flex gap-2 align-items-center">
+                                <span class="text-muted small me-2">Bagikan:</span>
+                                <button class="btn btn-sm btn-light text-primary rounded-circle shadow-sm" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+                                <button class="btn btn-sm btn-light text-info rounded-circle shadow-sm" title="Twitter"><i class="fab fa-twitter"></i></button>
+                                <button class="btn btn-sm btn-light text-success rounded-circle shadow-sm" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Tambahan Khusus Halaman Ini -->
+<style>
+    /* Efek hover pada tombol kembali */
+    .hover-effect:hover {
+        background-color: #00796b;
+        color: white;
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+    /* Jarak antar paragraf agar enak dibaca */
+    .article-content p {
+        margin-bottom: 1.5rem;
+    }
+    /* Responsif untuk gambar di layar HP */
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 250px !important;
+        }
+        .display-6 {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+{% endblock %}

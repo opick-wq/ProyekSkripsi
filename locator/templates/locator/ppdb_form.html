@@ -1,0 +1,25 @@
+{% extends 'locator/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Formulir Booking PPDB Online</h4>
+                </div>
+                <div class="card-body">
+                    <p class="alert alert-info">Silakan isi data awal. Anda akan diminta datang ke sekolah sesuai tanggal booking untuk verifikasi berkas.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Kirim Pendaftaran</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

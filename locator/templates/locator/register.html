@@ -1,0 +1,157 @@
+{% extends 'locator/base.html' %}
+
+{% block title %}Daftar Akun Baru - PPDB Online{% endblock %}
+
+{% block content %}
+<div class="bg-light min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                
+                <!-- Card Utama -->
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    
+                    <!-- Header Card -->
+                    <div class="card-header bg-success text-white text-center py-4 position-relative">
+                        <h3 class="fw-bold mb-1">Buat Akun Baru</h3>
+                        <p class="mb-0 opacity-75 small">Bergabunglah untuk mendaftar PPDB Online</p>
+                        <!-- Hiasan gelombang (opsional) -->
+                    </div>
+
+                    <div class="card-body p-4 p-md-5 bg-white">
+                        
+                        <!-- Alert Error -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-exclamation-circle fs-4 me-2"></i>
+                                    <div>
+                                        <strong>Ada kesalahan!</strong> Mohon periksa kembali isian form.
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endif %}
+
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            
+                            <!-- Loop Form Fields dengan Styling Baru -->
+                            {% for field in form %}
+                                <div class="mb-3 form-group">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-bold text-secondary small text-uppercase">
+                                        {{ field.label }}
+                                    </label>
+                                    
+                                    <div class="input-group">
+                                        <!-- Ikon Input Otomatis Berdasarkan Tipe -->
+                                        <span class="input-group-text bg-light border-end-0 text-muted">
+                                            {% if 'password' in field.name %}
+                                                <i class="fas fa-lock"></i>
+                                            {% elif 'username' in field.name %}
+                                                <i class="fas fa-user"></i>
+                                            {% else %}
+                                                <i class="fas fa-pen"></i>
+                                            {% endif %}
+                                        </span>
+                                        
+                                        <!-- Field Input -->
+                                        {{ field }} 
+                                        <!-- Note: Class 'form-control' sudah otomatis ditambahkan oleh widget Django atau CSS global -->
+                                    </div>
+
+                                    <!-- Error Per Field -->
+                                    {% if field.errors %}
+                                        <div class="text-danger small mt-1 ps-1">
+                                            <i class="fas fa-exclamation-circle me-1"></i> {{ field.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <!-- Help Text (Password requirements dll) -->
+                                    {% if field.help_text %}
+                                        <div class="form-text text-muted small ps-1" style="font-size: 0.75rem;">
+                                            {{ field.help_text|safe }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <!-- Tombol Submit Besar -->
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-success btn-lg fw-bold shadow-sm hover-lift">
+                                    Daftar Sekarang <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Divider -->
+                        <div class="position-relative my-4 text-center">
+                            <hr class="text-muted opacity-25">
+                            <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">Sudah punya akun?</span>
+                        </div>
+
+                        <!-- Tombol Login -->
+                        <div class="text-center">
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
+                                Login Masuk
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Link Balik -->
+                <div class="text-center mt-4">
+                    <a href="{% url 'home' %}" class="text-decoration-none text-muted fw-bold small">
+                        <i class="fas fa-chevron-left me-1"></i> Kembali ke Beranda
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Tambahan (Embedded) -->
+<style>
+    /* Styling Input agar menyatu dengan ikon */
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-color: #ced4da;
+    }
+    .form-control {
+        border-left: 0;
+        background-color: #f8f9fa;
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+    .form-control:focus {
+        background-color: #fff;
+        border-color: #00796b;
+        box-shadow: none; /* Hilangkan glow biru default */
+        border-left: 1px solid #00796b; /* Ganti border kiri saat fokus */
+    }
+    .form-control:focus + .input-group-text, 
+    .input-group:focus-within .input-group-text {
+        border-color: #00796b;
+        color: #00796b !important;
+        background-color: #fff;
+    }
+
+    /* Efek tombol naik saat dihover */
+    .hover-lift:hover {
+        transform: translateY(-2px);
+        transition: all 0.3s;
+    }
+
+    /* Sembunyikan helptext password yg terlalu panjang/mengganggu */
+    ul.helptext {
+        padding-left: 15px;
+        margin-bottom: 0;
+        color: #6c757d;
+    }
+    ul.helptext li {
+        list-style-type: disc;
+    }
+</style>
+{% endblock %}

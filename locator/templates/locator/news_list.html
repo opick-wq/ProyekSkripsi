@@ -1,0 +1,28 @@
+{% extends 'locator/base.html' %} <!-- Asumsi kita akan buat base.html nanti -->
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center text-success mb-5">Berita & Kegiatan Sekolah</h2>
+    <div class="row">
+        {% for item in news %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text text-muted small">{{ item.content|truncatewords:5 }}</p>
+                    <a href="{% url 'news_detail' item.slug %}" class="btn btn-outline-success btn-sm">Baca Selengkapnya</a>
+                </div>
+                <div class="card-footer bg-white border-0 text-muted small">
+                    <i class="far fa-calendar-alt"></i> {{ item.created_at|date:"d M Y" }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>Belum ada berita terbaru.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
