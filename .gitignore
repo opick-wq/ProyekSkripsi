@@ -38,7 +38,7 @@ biarkan baris db.sqlite3 ini diberi pagar (#).
 
 Jika ingin database bersih/kosong di Vercel, hilangkan pagarnya.
 
-db.sqlite3
+#db.sqlite3
 
 --- DJANGO ---
 

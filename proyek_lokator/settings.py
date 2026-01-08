@@ -66,20 +66,22 @@ WSGI_APPLICATION = 'proyek_lokator.wsgi.application'
 #     }
 # }
 
-if 'VERCEL' in os.environ:
-    # Kalo di Vercel, pakai SQLite
+IS_VERCEL = 'VERCEL' in os.environ
+
+if IS_VERCEL:
+    # Konfigurasi Khusus Vercel (SQLite)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            # Gunakan os.path.join agar path absolut dan benar di Linux Vercel
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 else:
-    # Kalo di Laptop (Lokal), boleh pakai MySQL atau SQLite
-    # (Biarkan konfigurasi MySQL Anda yang lama di sini, atau pakai SQLite juga biar aman)
+    # Konfigurasi Lokal (Laptop) - Bisa MySQL atau SQLite
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3', # Saran: Pakai SQLite juga di lokal biar sama
+            'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
