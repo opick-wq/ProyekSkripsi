@@ -150,7 +150,8 @@ STATICFILES_DIRS = [
 
 # Gunakan WhiteNoise untuk melayani file statis di Vercel
 # CompressedManifestStaticFilesStorage membuat file lebih kecil & cacheable
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 
 # --- MEDIA FILES (Upload Foto) ---
 #dda
