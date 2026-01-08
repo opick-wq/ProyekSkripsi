@@ -6,8 +6,8 @@ import shutil
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-kunci-rahasia-skripsi-anda'
-#DEBUG = True
-DEBUG = os.environ.get('VERCEL') is None
+DEBUG = True
+#DEBUG = os.environ.get('VERCEL') is None
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh']
 
 INSTALLED_APPS = [
@@ -150,10 +150,8 @@ STATICFILES_DIRS = [
 
 # Gunakan WhiteNoise untuk melayani file statis di Vercel
 # CompressedManifestStaticFilesStorage membuat file lebih kecil & cacheable
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --- MEDIA FILES (Upload Foto) ---
-#dda
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
