@@ -69,17 +69,25 @@ WSGI_APPLICATION = 'proyek_lokator.wsgi.application'
 #     }
 # }
 
-if 'VERCEL' in os.environ:
+if 'DATABASE_URL' in os.environ:
+    # Jika di Vercel, pakai PostgreSQL Neon
+    # URL diambil otomatis dari Environment Variable 'DATABASE_URL'
     DATABASES = {
-        'default': dj_database_url.parse("npx neonctl@latest init")
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
 else:
-    # Database Lokal (Tetap SQLite)
+    # Jika di Laptop, pakai SQLite seperti biasa
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
+    }
+# JANGAN GUNAKAN INI JIKA UPLOAD KE GITHUB PUBLIC
+if 'VERCEL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse("postgresql://neondb_owner:npg_Z6BM3YrQhPNm@ep-lucky-dawn-aho34eup-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
+        # ^^^ Ganti string di atas dengan URL Neon asli Anda
     }
 
 LOGIN_REDIRECT_URL = 'home' 
