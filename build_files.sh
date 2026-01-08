@@ -6,8 +6,9 @@ mkdir -p staticfiles_build
 
 # Jalankan collectstatic dan taruh hasilnya di staticfiles_build
 # --noinput artinya jangan tanya "Yes/No", langsung timpa saja
-python3.9 manage.py collectstatic --noinput --clear
+# Gunakan python3 agar sesuai dengan pip yang digunakan
+python3 manage.py collectstatic --noinput --clear
 
 # Jalankan migrasi database
-python3.9 manage.py makemigrations
-python3.9 manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
