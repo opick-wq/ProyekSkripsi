@@ -140,14 +140,18 @@ USE_TZ = True
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+# Folder tempat kita menaruh CSS/JS kustom kita sendiri (selain admin)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Gunakan WhiteNoise untuk melayani file statis di Vercel
+# CompressedManifestStaticFilesStorage membuat file lebih kecil & cacheable
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media Files (Foto Upload)
-# Catatan: Di Vercel, foto yang diupload user TIDAK akan tersimpan permanen.
-# Untuk demo tidak masalah.
+# --- MEDIA FILES (Upload Foto) ---
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
