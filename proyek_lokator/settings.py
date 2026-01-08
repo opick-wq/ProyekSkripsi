@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-
+import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -70,19 +70,14 @@ WSGI_APPLICATION = 'proyek_lokator.wsgi.application'
 # }
 
 if 'VERCEL' in os.environ:
-    # Kalo di Vercel, pakai SQLite
+    DATABASES = {
+        'default': dj_database_url.parse("npx neonctl@latest init")
+    }
+else:
+    # Database Lokal (Tetap SQLite)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    # Kalo di Laptop (Lokal), boleh pakai MySQL atau SQLite
-    # (Biarkan konfigurasi MySQL Anda yang lama di sini, atau pakai SQLite juga biar aman)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3', # Saran: Pakai SQLite juga di lokal biar sama
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
