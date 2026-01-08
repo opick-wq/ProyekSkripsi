@@ -6,7 +6,8 @@ import shutil
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-kunci-rahasia-skripsi-anda'
-DEBUG = True
+#DEBUG = True
+DEBUG = os.environ.get('VERCEL') is None
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh']
 
 INSTALLED_APPS = [
@@ -16,7 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic',
     'locator',
 ]
 
