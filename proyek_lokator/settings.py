@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import shutil
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -70,33 +70,19 @@ WSGI_APPLICATION = 'proyek_lokator.wsgi.application'
 # }
 
 if 'VERCEL' in os.environ:
-    # Lokasi database asli (yang di-upload)
-    db_source = os.path.join(BASE_DIR, 'db.sqlite3')
-    # Lokasi tujuan (folder sementara yang bisa ditulis)
-    db_dest = '/tmp/db.sqlite3'
-
-    # Salin database ke /tmp jika belum ada
-    # Ini trik agar SQLite bisa berjalan di Read-Only filesystem Vercel
-    try:
-        if os.path.exists(db_source):
-            # Selalu copy ulang agar data fresh dari upload terakhir
-            shutil.copy2(db_source, db_dest)
-        else:
-            print("PERINGATAN: File db.sqlite3 asli tidak ditemukan di server!")
-    except Exception as e:
-        print(f"Error menyalin database: {e}")
-
+    # Kalo di Vercel, pakai SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': db_dest, # Arahkan Django ke file di /tmp
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 else:
-    # Konfigurasi Lokal (Laptop)
+    # Kalo di Laptop (Lokal), boleh pakai MySQL atau SQLite
+    # (Biarkan konfigurasi MySQL Anda yang lama di sini, atau pakai SQLite juga biar aman)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
+            'ENGINE': 'django.db.backends.sqlite3', # Saran: Pakai SQLite juga di lokal biar sama
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
