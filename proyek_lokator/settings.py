@@ -98,6 +98,23 @@ TIME_ZONE = 'Asia/Jakarta'
 USE_I18N = True
 USE_TZ = True
 
+# --- STATIC FILES (CSS/JS/IMAGES) ---
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Folder tempat Django mengambil file statis tambahan (CSS/JS buatan sendiri)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Folder OUTPUT di mana Django akan mengumpulkan semua file statis saat deploy.
+# PENTING: Nama folder ini HARUS SAMA dengan "distDir" di vercel.json
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build') 
+
+# Gunakan Whitenoise untuk melayani file statis di Vercel
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# --- MEDIA FILES (Upload Foto) ---
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
