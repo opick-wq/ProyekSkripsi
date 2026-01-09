@@ -100,19 +100,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Folder tempat Django mengumpulkan semua file statis saat deploy (termasuk CSS Admin)
-# PENTING: Folder ini harus sama dengan 'distDir' di vercel.json
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build')
+# PENTING: Gunakan 'staticfiles' (tanpa _build) agar standar
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Folder tempat kita menaruh file statis buatan sendiri (selain admin)
-# Kita buat list kosong dulu jika Anda belum punya file css sendiri
-STATICFILES_DIRS = [] 
-# Jika nanti Anda buat folder 'static' di root, baru isi: [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# Gunakan Whitenoise untuk melayani file statis di Vercel
-# PENTING: Gunakan versi 'CompressedManifestStaticFilesStorage' agar file terkompresi & aman
+# Whitenoise: Wajib untuk Vercel
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# --- MEDIA FILES (Upload Foto) ---
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
